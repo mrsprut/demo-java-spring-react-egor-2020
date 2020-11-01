@@ -10,6 +10,7 @@ import org.tyaa.demo.spring.springreactmysqlmongo.models.ResponseModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.models.RoleModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.models.UserModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.services.AuthService;
+import org.tyaa.demo.spring.springreactmysqlmongo.services.interfaces.IAuthService;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,7 @@ public class AuthController {
 
     // Получение ссылки на пользовательскую службу безопасности
     @Autowired
-    private AuthService authService;
+    private IAuthService authService;
 
     @Secured("ROLE_ADMIN")
     @GetMapping("/admin/roles")

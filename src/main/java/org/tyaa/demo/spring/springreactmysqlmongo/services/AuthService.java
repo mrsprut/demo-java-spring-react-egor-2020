@@ -12,6 +12,7 @@ import org.tyaa.demo.spring.springreactmysqlmongo.models.RoleModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.models.UserModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.repositories.RoleRepository;
 import org.tyaa.demo.spring.springreactmysqlmongo.repositories.UserRepository;
+import org.tyaa.demo.spring.springreactmysqlmongo.services.interfaces.IAuthService;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AuthService {
+public class AuthService implements IAuthService {
 
     @Autowired
     public PasswordEncoder passwordEncoder;
@@ -30,6 +31,7 @@ public class AuthService {
     @Autowired
     private UserRepository userDao;
 
+    @Override
     public ResponseModel createRole(RoleModel roleModel) {
         Role role = Role.builder().name(roleModel.name).build();
         roleDao.save(role);
@@ -39,6 +41,7 @@ public class AuthService {
             .build();
     }
 
+    @Override
     public ResponseModel createUser(UserModel userModel) {
         User user =
             User.builder()
@@ -53,6 +56,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     public ResponseModel getAllRoles() {
         List<Role> roles =
                 roleDao.findAll(Sort.by("name").ascending());
@@ -70,6 +74,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     @Transactional
     public ResponseModel getRoleUsers(Long roleId) {
         Optional<Role> roleOptional = roleDao.findById(roleId);
@@ -96,6 +101,7 @@ public class AuthService {
         }
     }
 
+    @Override
     public ResponseModel deleteRole(Long id) {
         roleDao.deleteById(id);
         return ResponseModel.builder()
@@ -104,6 +110,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     public ResponseModel deleteUser(Long id) {
         userDao.deleteById(id);
         return ResponseModel.builder()
@@ -112,6 +119,7 @@ public class AuthService {
             .build();
     }
 
+    @Override
     public ResponseModel check(Authentication authentication) {
         ResponseModel response = new ResponseModel();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -134,6 +142,7 @@ public class AuthService {
         return response;
     }
 
+    @Override
     public ResponseModel onSignOut() {
         return ResponseModel.builder()
             .status(ResponseModel.SUCCESS_STATUS)
@@ -141,6 +150,7 @@ public class AuthService {
             .build();
     }
 
+    @Override
     public ResponseModel onError() {
         return ResponseModel.builder()
                 .status(ResponseModel.FAIL_STATUS)
@@ -148,6 +158,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     public ResponseModel makeUserAdmin(Long id) throws Exception {
         // Получаем из БД объект роли администратора
         Role role = roleDao.findRoleByName("ROLE_ADMIN");

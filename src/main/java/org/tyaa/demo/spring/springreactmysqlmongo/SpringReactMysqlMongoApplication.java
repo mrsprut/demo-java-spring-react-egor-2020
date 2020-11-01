@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.tyaa.demo.spring.springreactmysqlmongo.entities.Role;
 import org.tyaa.demo.spring.springreactmysqlmongo.entities.User;
 import org.tyaa.demo.spring.springreactmysqlmongo.repositories.RoleRepository;
@@ -21,7 +22,8 @@ public class SpringReactMysqlMongoApplication {
 	@Bean
 	public CommandLineRunner initData(
 			RoleRepository roleRepository,
-			UserRepository userRepository
+			UserRepository userRepository,
+			PasswordEncoder passwordEncoder
 	) {
 		return args -> {
 			roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
@@ -31,28 +33,28 @@ public class SpringReactMysqlMongoApplication {
 			userRepository.save(
 					User.builder()
 							.name("admin")
-							.password("AdminPassword1")
+							.password(passwordEncoder.encode("AdminPassword1"))
 							.role(adminRole)
 							.build()
 			);
 			userRepository.save(
 					User.builder()
 							.name("one")
-							.password("UserPassword1")
+							.password(passwordEncoder.encode("UserPassword1"))
 							.role(userRole)
 							.build()
 			);
 			userRepository.save(
 					User.builder()
 							.name("two")
-							.password("UserPassword2")
+							.password(passwordEncoder.encode("UserPassword2"))
 							.role(userRole)
 							.build()
 			);
 			userRepository.save(
 					User.builder()
 							.name("three")
-							.password("UserPassword3")
+							.password(passwordEncoder.encode("UserPassword3"))
 							.role(userRole)
 							.build()
 			);
