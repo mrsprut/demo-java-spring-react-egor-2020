@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.tyaa.demo.spring.springreactmysqlmongo.controllers.AuthController;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,7 +49,7 @@ public class SecurityControllerMethodsTest {
     // проверка возможности получения стандартной модели данных о пользователе
     // по его имени из пользовательского бина hibernateWebAuthProvider,
     // из стандартного метода loadUserByUsername
-    /* @Test
+    @Test
     @WithUserDetails(
         value = "admin",
         userDetailsServiceBeanName = "hibernateWebAuthProvider")
@@ -74,5 +76,5 @@ public class SecurityControllerMethodsTest {
         ResponseEntity responseEntity = authController.getAllRoles();
         assertNotNull(responseEntity);
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
-    } */
+    }
 }

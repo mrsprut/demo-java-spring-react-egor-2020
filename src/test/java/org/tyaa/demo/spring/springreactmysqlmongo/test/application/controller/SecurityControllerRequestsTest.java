@@ -21,6 +21,7 @@ import org.tyaa.demo.spring.springreactmysqlmongo.security.SecurityConfig;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,7 +65,7 @@ public class SecurityControllerRequestsTest {
 
     final String baseUrl = "http://localhost:" + 8090 + "/simplespa/";
 
-    /* @Test
+    @Test
     @Order(1) // Этот кейс выполнить первым
     public void performLoginDefault() throws Exception {
         // отправить стандартный пост-запрос для входа
@@ -213,5 +214,5 @@ public class SecurityControllerRequestsTest {
     // получить пустые заголовки для веб-запроса неаутентифицированного пользователя
     private HttpHeaders anonymousUser() {
         return new HttpHeaders();
-    } */
+    }
 }
