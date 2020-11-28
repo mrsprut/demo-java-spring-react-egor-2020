@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import org.tyaa.demo.spring.springreactmysqlmongo.models.CategoryModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.models.ResponseModel;
 import org.tyaa.demo.spring.springreactmysqlmongo.services.CategoryService;
+import org.tyaa.demo.spring.springreactmysqlmongo.services.interfaces.ICategoryService;
 
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
 
     @Autowired
-    private CategoryService service;
+    private ICategoryService service;
 
     @GetMapping("/categories")
     public ResponseEntity<ResponseModel> getAll() {

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class CategoryService {
+public class CategoryService implements org.tyaa.demo.spring.springreactmysqlmongo.services.interfaces.ICategoryService {
 
     @Autowired
     private CategoryHibernateDAO categoryDao;
@@ -24,18 +24,20 @@ public class CategoryService {
     @Autowired
     private ProductHibernateDAO productDao;
 
+    @Override
     public ResponseModel create(CategoryModel categoryModel) {
         Category category =
             Category.builder().name(categoryModel.getName().trim()).build();
         categoryDao.save(category);
         // Demo Logging
-        // System.out.println(String.format("Category %s Created", category.getName()));
+        System.out.println(String.format("Category %s Created", category.getName()));
         return ResponseModel.builder()
             .status(ResponseModel.SUCCESS_STATUS)
             .message(String.format("Category %s Created", category.getName()))
             .build();
     }
 
+    @Override
     public ResponseModel update(CategoryModel categoryModel) {
         Category category =
             Category.builder()
@@ -51,6 +53,7 @@ public class CategoryService {
                 .build();
     }
 
+    @Override
     public ResponseModel getAll() {
         List<Category> categories = categoryDao.findAll(Sort.by("id").descending());
         List<CategoryModel> categoryModels =
@@ -68,6 +71,7 @@ public class CategoryService {
             .build();
     }
 
+    @Override
     public ResponseModel delete(Long id) {
         Optional<Category> categoryOptional = categoryDao.findById(id);
         if (categoryOptional.isPresent()){
