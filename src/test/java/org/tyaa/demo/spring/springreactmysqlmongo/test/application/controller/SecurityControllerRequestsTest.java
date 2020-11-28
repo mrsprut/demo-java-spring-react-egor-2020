@@ -63,7 +63,7 @@ public class SecurityControllerRequestsTest {
     @Autowired
     private TestRestTemplate testRestTemplate; // Сложный веб-клиент для гибких тестов
 
-    final String baseUrl = "http://localhost:" + 8090 + "/simplespa/";
+    final String baseUrl = "http://localhost:" + 8090 + "/springreact/";
 
     @Test
     @Order(1) // Этот кейс выполнить первым
