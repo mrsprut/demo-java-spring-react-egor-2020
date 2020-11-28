@@ -58,7 +58,7 @@ public class ProductController {
     // заданным как часть начальной строки с произвольно выбранными разделителями:
     // "::" - между парами ключ-значение,
     // ":" - между каждым ключом и его значением
-    @GetMapping("/products/filter}")
+    @GetMapping("/products/filtered}")
     public ResponseEntity<ResponseModel> search(
         @RequestParam(value = "search") String searchString,
         @PathVariable String orderBy,
